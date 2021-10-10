@@ -1,21 +1,30 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { useFonts } from '@use-expo/font';
+import { useColorScheme } from 'react-native-appearance';
 
-export default function App() {
+import { FONTS } from './constants/typography';
+import { THEME_DARK, THEME_LIGHT } from './constants/theme';
+import Context from './context';
+
+import AppNavigation from './AppNavigation';
+
+const App: React.FC = () => {
+  const isDarkMode = useColorScheme() === 'dark';
+  const theme = isDarkMode ? THEME_DARK : THEME_LIGHT;
+  let [fontsLoaded] = useFonts(FONTS);
+
+  if (!fontsLoaded) return null;
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Context.Provider value={{
+      theme,
+      toggleTheme(theme) { 
+        this.theme = theme;
+      }
+    }}>
+      <AppNavigation />
+    </Context.Provider>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
