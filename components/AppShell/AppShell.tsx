@@ -3,14 +3,14 @@ import { StyleSheet, SafeAreaView, KeyboardAvoidingView, Platform, StatusBar } f
 import type { ViewStyle } from 'react-native';
 import { useColorScheme } from 'react-native-appearance';
 
-import type { ThemeType } from './context';
-import { THEMES, THEME_DARK, THEME_LIGHT } from './constants/theme';
+import type { ThemeType } from '../../context';
+import { THEMES, THEME_DARK, THEME_LIGHT } from '../../constants/theme';
 
-import context from './context';
+import context from '../../context';
 
 const AppShell: React.FC<{
-  children: React.ReactNode,
-  style?: ViewStyle
+  children: React.ReactNode;
+  style?: ViewStyle;
 }> = props => {  
   const themeObject = useContext(context);
   const { children, style } = props;

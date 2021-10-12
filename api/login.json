@@ -1,0 +1,7 @@
+{
+  "users": [{
+    "username": "John Doe",
+    "email": "user@reapp.com",
+    "password": "password"
+  }]
+}

@@ -4,14 +4,12 @@ import type { StackNavigationOptions } from '@react-navigation/stack';
 
 import { ArrowIcon } from '../assets/svg';
 
-export type HeaderOptionsType = {
+const useHeaderOptions = (headerOptions: {
   icon: React.ReactNode,
   headerLeftIconStyles: any,
   arrowIconColor: string,
   options: StackNavigationOptions
-};
-
-const useHeaderOptions = (headerOptions: HeaderOptionsType) => {
+}) => {
   const { icon, headerLeftIconStyles, arrowIconColor, options } = headerOptions;
 
   const getOptions = (navigation: any): StackNavigationOptions => {

@@ -4,17 +4,20 @@ import { Platform } from 'react-native';
 import type { ParamListBase, RouteProp } from '@react-navigation/native';
 import type { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 
 import type { HeaderOptionsType } from './hooks/useHeaderOptions';
-import { ShuttleIcon, ProfileIcon, CityIcon, HomeIcon } from './assets/svg';
+import { ProfileIcon, HomeIcon } from './assets/svg';
 
+import AuthScreen from './screens/AuthScreen/AuthScreen';
 import FeedScreen from './screens/FeedScreen/FeedScreen';
 
 import context from './context';
 import { TYPOGRAPHY } from './constants/typography';
 import { THEMES, THEME_DARK } from './constants/theme';
 
+const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 type ScreenOptionsType = {
@@ -43,16 +46,10 @@ const AppNavigation = () => {
   
       switch (route.name) {
         case 'Feed':
-          icon = <ShuttleIcon {...iconProps} />
+          icon = <HomeIcon {...iconProps} />
           break;
         case 'Profile':
           icon = <ProfileIcon {...iconProps} />
-          break;
-        case 'City':
-          icon = <CityIcon {...iconProps} />
-          break;
-        case 'Home':
-          icon = <HomeIcon {...iconProps} />
           break;
       }
   
@@ -62,6 +59,7 @@ const AppNavigation = () => {
 
   const tabBarOptions = (title: string): BottomTabNavigationOptions => ({
     title,
+    headerShown: false,
     tabBarActiveTintColor: THEMES[theme].surface.onAccent,
     tabBarInactiveTintColor: THEMES[theme].surface.onSecondary,
     tabBarStyle: {
@@ -104,7 +102,7 @@ const AppNavigation = () => {
     dark: theme === THEME_DARK
   };
 
-  const headerOptions = (icon: React.ReactNode, title: string): HeaderOptionsType => ({
+  const headerOptions = (icon?: React.ReactNode, title?: string): HeaderOptionsType => ({
     icon: icon,
     headerLeftIconStyles,
     arrowIconColor: THEMES[theme].background.onPrimary,
@@ -133,13 +131,29 @@ const AppNavigation = () => {
 
   return (
     <NavigationContainer theme={navigationTheme}>
-      <Tab.Navigator screenOptions={screenOptions}>
-        <Tab.Screen name="Feed" options={() => tabBarOptions('Feed')}>
-          {() => <FeedScreen headerOptions={headerOptions(
-            <ShuttleIcon style={screenHeaderIconStyle} color={screenHeaderIconColor} />, 'Feed'
-          )} />}
-        </Tab.Screen>
-      </Tab.Navigator>
+      <Stack.Navigator>
+
+        <Stack.Screen
+          name="Auth"
+          options={{headerShown: false}}>
+          {() => <AuthScreen headerOptions={headerOptions()} />}
+        </Stack.Screen>
+
+        <Stack.Screen
+          name="Main"
+          options={{headerShown: false}}>
+          {() =>
+            <Tab.Navigator screenOptions={screenOptions}>
+              <Tab.Screen name="Feed" options={() => tabBarOptions('Feed')}>
+                {() => <FeedScreen headerOptions={headerOptions(
+                  <HomeIcon style={screenHeaderIconStyle} color={screenHeaderIconColor} />, 'Feed'
+                )} />}
+              </Tab.Screen>
+            </Tab.Navigator>
+          }
+        </Stack.Screen>
+
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };
