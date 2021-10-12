@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 
-import AppShell from '../../components/AppShell/AppShell';
 import type { ThemeType } from '../../context';
 import context from '../../context';
 import { THEMES } from '../../constants/theme';
+
+import AppShell from '../../components/AppShell/AppShell';
 import Container from '../../components/_ui/Container/Container';
 
 const FeedMain: React.FC = () => {

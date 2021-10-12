@@ -2,6 +2,9 @@
   "users": [{
     "username": "John Doe",
     "email": "user@reapp.com",
-    "password": "password"
+    "password": "password",
+    "phone": "12345678900",
+    "address": "United Kingdom, Manchester",
+    "about": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quam, inventore. Veniam, laboriosam. Explicabo voluptate error perferendis placeat sunt quidem, ipsum odit provident ea velit exercitationem alias temporibus, deserunt excepturi animi." 
   }]
 }

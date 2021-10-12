@@ -32,13 +32,12 @@ const AuthMain: React.FC = () => {
 
   useEffect(() => {
     (async () => {
-      const userLoggedIn = await JSON.parse(await AsyncStorage.getItem('user:logged_in') || '');
+      const userLoggedIn = await JSON.parse(await AsyncStorage.getItem('user:logged_in') || 'false');
 
       if (userLoggedIn) {
         goToMainScreen();
       }
     })();
-
   }, []);
 
   const login = async () => {
@@ -64,15 +63,16 @@ const AuthMain: React.FC = () => {
 
         setTimeout(goToMainScreen, 1000);
       } else {
+        setLoading(false);
         Alert.alert(
           'Invalid user',
           'User with such email and password pair doesn\'t exist',
           [{text: 'ОК'}],
           {cancelable: false}
         );
-
-        setLoading(false);
       }
+    } else {
+      setLoading(false);
     }
   };
 
@@ -98,7 +98,7 @@ const AuthMain: React.FC = () => {
                 secureTextEntry={true}
                 error={passwordError && 'Password must be at least 8 characters'} />
             </View>
-            <Button title='Login' buttonOnPress={login} loading={loading} />
+            <Button title='Login' buttonOnPress={login} loading={loading} disabled={!emailValue || !passwordValue} />
           </Container>
         </View>
       </TouchableWithoutFeedback>

@@ -12,6 +12,7 @@ import { ProfileIcon, HomeIcon } from './assets/svg';
 
 import AuthScreen from './screens/AuthScreen/AuthScreen';
 import FeedScreen from './screens/FeedScreen/FeedScreen';
+import ProfileScreen from './screens/ProfileScreen/ProfileScreen';
 
 import context from './context';
 import { TYPOGRAPHY } from './constants/typography';
@@ -147,6 +148,12 @@ const AppNavigation = () => {
               <Tab.Screen name="Feed" options={() => tabBarOptions('Feed')}>
                 {() => <FeedScreen headerOptions={headerOptions(
                   <HomeIcon style={screenHeaderIconStyle} color={screenHeaderIconColor} />, 'Feed'
+                )} />}
+              </Tab.Screen>
+
+              <Tab.Screen name="Profile" options={() => tabBarOptions('Profile')}>
+                {() => <ProfileScreen headerOptions={headerOptions(
+                  <ProfileIcon style={screenHeaderIconStyle} color={screenHeaderIconColor} />, 'Profile'
                 )} />}
               </Tab.Screen>
             </Tab.Navigator>
